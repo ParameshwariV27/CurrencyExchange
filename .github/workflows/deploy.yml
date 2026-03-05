@@ -29,7 +29,7 @@ jobs:
 
     - name: Build with Maven 
       run: | 
-        cd ccurrency-exchange-k8s 
+        cd currency-exchange-k8s 
         mvn clean package -DskipTests
 
     - name: Authenticate to Google Cloud
@@ -58,5 +58,6 @@ jobs:
       run: |
         kubectl set image deployment/currency-exchange \
         currency-exchange=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.sha }}
+
 
 
