@@ -51,7 +51,8 @@ jobs:
 
     - name: Install GKE Auth Plugin
       run: |
-        gcloud components install gke-gcloud-auth-plugin --quiet
+        sudo apt-get update
+        sudo apt-get install -y google-cloud-cli-gke-gcloud-auth-plugin
 
     - name: Get GKE Credentials
       run: |
@@ -63,6 +64,7 @@ jobs:
       run: |
         kubectl set image deployment/currency-exchange \
         currency-exchange=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.sha }}
+
 
 
 
