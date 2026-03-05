@@ -49,10 +49,12 @@ jobs:
       run: |
         docker push $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.sha }}
 
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+
     - name: Install GKE Auth Plugin
       run: |
-        sudo apt-get update
-        sudo apt-get install -y google-cloud-cli-gke-gcloud-auth-plugin
+        gcloud components install gke-gcloud-auth-plugin --quiet
 
     - name: Get GKE Credentials
       run: |
@@ -64,6 +66,7 @@ jobs:
       run: |
         kubectl set image deployment/currency-exchange \
         currency-exchange=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.sha }}
+
 
 
 
