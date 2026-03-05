@@ -3,7 +3,7 @@ kind: Service
 metadata:
   annotations:
     cloud.google.com/neg: '{"ingress":true}'
-  creationTimestamp: "2025-12-31T03:33:04Z"
+  creationTimestamp: "2025-12-31T15:36:53Z"
   finalizers:
   - gke.networking.io/l4-netlb-v1
   - service.kubernetes.io/load-balancer-cleanup
@@ -11,20 +11,20 @@ metadata:
     app: currency-exchange
   name: currency-exchange
   namespace: default
-  resourceVersion: "1767152023210511021"
-  uid: c846b96f-3a19-49e0-9247-989dac7df9fe
+  resourceVersion: "1767195449042655021"
+  uid: fdb936ad-0b88-4123-b32e-07044fe07a28
 spec:
   allocateLoadBalancerNodePorts: true
-  clusterIP: 34.118.229.94
+  clusterIP: 34.118.234.96
   clusterIPs:
-  - 34.118.229.94
+  - 34.118.234.96
   externalTrafficPolicy: Cluster
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-  - nodePort: 30412
+  - nodePort: 32035
     port: 9000
     protocol: TCP
     targetPort: 9000
@@ -35,5 +35,5 @@ spec:
 status:
   loadBalancer:
     ingress:
-    - ip: 34.93.220.91
+    - ip: 34.47.155.254
       ipMode: VIP

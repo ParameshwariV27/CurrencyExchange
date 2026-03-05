@@ -1,35 +1,84 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: currency-exchange
-  namespace: default
+  annotations:
+    deployment.kubernetes.io/revision: "6"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"currency-exchange"},"name":"currency-exchange","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"currency-exchange"}},"template":{"metadata":{"labels":{"app":"currency-exchange"}},"spec":{"containers":[{"image":"pbv27/mmv2-currency-exchange:0.0.12-SNAPSHOT","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/actuator/health/liveness","port":9000}},"name":"mmv2-currency-exchange","readinessProbe":{"httpGet":{"path":"/actuator/health/readiness","port":9000}},"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","terminationGracePeriodSeconds":30}}}}
+  creationTimestamp: "2025-12-31T15:05:02Z"
+  generation: 7
   labels:
     app: currency-exchange
+  name: currency-exchange
+  namespace: default
+  resourceVersion: "1772296626094447013"
+  uid: bff6ff4f-b7b3-485d-aac9-2975db0fb13b
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: currency-exchange
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2025-12-31T23:34:17+05:30"
+      creationTimestamp: null
       labels:
         app: currency-exchange
     spec:
       containers:
-        - name: mmv2-currency-exchange
-          image: pbv27/mmv2-currency-exchange:0.0.12-SNAPSHOT
-          imagePullPolicy: IfNotPresent
-          readinessProbe:
-            httpGet:
-              port: 9000
-              path: /actuator/health/readiness
-          livenessProbe:
-            httpGet:
-              port: 9000
-              path: /actuator/health/liveness
-          resources: {}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
+      - image: pbv27/mmv2-currency-exchange:0.0.12-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health/liveness
+            port: 9000
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: mmv2-currency-exchange
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health/readiness
+            port: 9000
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
       terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2025-12-31T15:05:02Z"
+    lastUpdateTime: "2025-12-31T18:04:40Z"
+    message: ReplicaSet "currency-exchange-d875c4999" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2026-02-28T16:37:06Z"
+    lastUpdateTime: "2026-02-28T16:37:06Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 7
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
