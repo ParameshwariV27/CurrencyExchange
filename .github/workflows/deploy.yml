@@ -51,14 +51,15 @@ jobs:
 
     - name: Get GKE Credentials
       run: |
-        gcloud container clusters get-credentials CLUSTER_NAME \
-        --zone ZONE \
+        gcloud container clusters get-credentials my-cluster \
+        --zone asia-south1-a \
         --project $PROJECT_ID
 
     - name: Deploy to Kubernetes
       run: |
         kubectl set image deployment/currency-exchange \
         currency-exchange=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.sha }}
+
 
 
 
