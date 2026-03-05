@@ -69,7 +69,7 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        kubectl set image deployment/mmv2-currency-exchange \
+        kubectl set image deployment/currency-exchange \
         currency-exchange=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.sha }}
 
 
