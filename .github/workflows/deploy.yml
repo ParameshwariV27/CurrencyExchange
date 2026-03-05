@@ -62,10 +62,16 @@ jobs:
         --zone asia-south1-a \
         --project $PROJECT_ID
 
+    - name: Debug cluster resources
+      run: |
+        kubectl get pods
+        kubectl get deployments
+
     - name: Deploy to Kubernetes
       run: |
         kubectl set image deployment/mmv2-currency-exchange \
         currency-exchange=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.sha }}
+
 
 
 
