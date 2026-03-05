@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currency-exchange
+  namespace: default
+  labels:
+    app: currency-exchange
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: currency-exchange
+  template:
+    metadata:
+      labels:
+        app: currency-exchange
+    spec:
+      containers:
+        - name: mmv2-currency-exchange
+          image: pbv27/mmv2-currency-exchange:0.0.12-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            httpGet:
+              port: 9000
+              path: /actuator/health/readiness
+          livenessProbe:
+            httpGet:
+              port: 9000
+              path: /actuator/health/liveness
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
