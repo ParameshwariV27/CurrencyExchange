@@ -1,4 +1,4 @@
-package com.pv.currency_exchange_k8s;
+package currency_exchange_k8s;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

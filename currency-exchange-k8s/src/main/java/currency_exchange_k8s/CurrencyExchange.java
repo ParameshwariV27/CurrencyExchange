@@ -1,4 +1,4 @@
-package com.pv.currency_exchange_k8s;
+package currency_exchange_k8s;
 
 import java.math.BigDecimal;
 
