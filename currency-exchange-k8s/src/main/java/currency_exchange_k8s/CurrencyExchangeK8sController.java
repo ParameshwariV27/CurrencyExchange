@@ -62,7 +62,7 @@ public class CurrencyExchangeK8sController {
 		}
 		String port =environment.getProperty("local.server.port");
 		currencyExchange.setEnvironment(port);
-		System.out.println("###########################################################################################");
+		System.out.println("#############################################################################################");
 		System.out.println("From currency Exchaneg::  ");
 		System.out.println(currencyExchange);
 		System.out.println("###########################################################################################");
