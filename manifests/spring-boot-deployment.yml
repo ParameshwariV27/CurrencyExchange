@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: currency-exchange
+  labels:
+    app: currency-exchange
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: currency-exchange
+
+  template:
+    metadata:
+      labels:
+        app: currency-exchange
+
+    spec:
+      containers:
+        - name: spring-boot
+          image: pbv27/spring-boot:44
+
+          ports:
+            - containerPort: 9000
+
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/currencydb
+
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-creds
+                  key: POSTGRES_USER
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-creds
+                  key: POSTGRES_PASSWORD
