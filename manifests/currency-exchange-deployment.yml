@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: spring-boot
-          image: pbv27/spring-boot:44
+          image: pbv27/spring-boot:50
 
           ports:
             - containerPort: 9000
